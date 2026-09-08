@@ -1,0 +1,912 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --pink: #e83e8c;
+    --pink-dark: #c91f70;
+    --pink-light: #fff0f7;
+
+    --text: #29232a;
+    --muted: #8b8188;
+
+    --border: #eadfe5;
+    --bg: #faf8fa;
+    --white: #ffffff;
+
+    --shadow:
+        0 10px 30px rgba(80, 20, 50, 0.06);
+}
+
+body {
+    font-family: "Kanit", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar {
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 5%;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.brand-logo {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink),
+            var(--pink-dark)
+        );
+
+    color: white;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    box-shadow:
+        0 7px 18px rgba(232, 62, 140, 0.25);
+}
+
+.brand-name {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.brand-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 13px;
+    color: #5e565c;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+    width: min(100% - 32px, 980px);
+    margin: 0 auto;
+
+    padding: 55px 0 70px;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.page-heading {
+    margin-bottom: 32px;
+}
+
+.eyebrow {
+    display: inline-block;
+
+    color: var(--pink);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+.page-heading h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    margin-bottom: 7px;
+}
+
+.page-heading p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.request-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-section {
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 28px;
+
+    box-shadow: var(--shadow);
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 25px;
+}
+
+.section-number {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: var(--pink-light);
+
+    color: var(--pink);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.section-title h2 {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.section-title p {
+    margin-top: 2px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.form-group label span,
+.file-content label span {
+    color: var(--pink);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    background: #fff;
+
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+input,
+select {
+    height: 46px;
+    padding: 0 14px;
+}
+
+textarea {
+    padding: 13px 14px;
+
+    resize: vertical;
+
+    min-height: 120px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #b4aab0;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--pink);
+
+    box-shadow:
+        0 0 0 4px rgba(232, 62, 140, 0.08);
+}
+
+
+/* =========================
+   ITEMS
+========================= */
+
+.items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.item-card {
+    padding: 20px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    background: #fdfcfd;
+}
+
+.item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 17px;
+}
+
+.item-header strong {
+    font-size: 14px;
+}
+
+.remove-item {
+    border: none;
+    background: none;
+
+    color: #c95b7f;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.remove-item:disabled {
+    color: #cfc6cb;
+    cursor: not-allowed;
+}
+
+.item-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(100px, 0.8fr)
+        minmax(130px, 1fr)
+        minmax(150px, 1fr);
+
+    gap: 12px;
+}
+
+.price-input {
+    position: relative;
+}
+
+.price-input input {
+    padding-right: 50px;
+}
+
+.price-input span {
+    position: absolute;
+
+    right: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    pointer-events: none;
+}
+
+.item-subtotal {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 17px;
+    padding-top: 13px;
+
+    border-top: 1px dashed var(--border);
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.item-subtotal strong {
+    color: var(--pink-dark);
+    font-size: 15px;
+}
+
+
+/* =========================
+   ADD ITEM
+========================= */
+
+.add-item-btn {
+    width: 100%;
+
+    height: 47px;
+
+    margin-top: 13px;
+
+    border: 1px dashed #e5a6c3;
+
+    border-radius: 11px;
+
+    background: var(--pink-light);
+
+    color: var(--pink-dark);
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.add-item-btn:hover {
+    background: #ffe5f1;
+
+    border-color: var(--pink);
+}
+
+.add-item-btn span {
+    font-size: 18px;
+    vertical-align: -1px;
+}
+
+
+/* =========================
+   GRAND TOTAL
+========================= */
+
+.grand-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 17px;
+    padding: 20px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff2f8,
+            #fff8fb
+        );
+
+    border: 1px solid #f2d5e3;
+}
+
+.grand-total span {
+    display: block;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.grand-total small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.grand-total strong {
+    color: var(--pink-dark);
+
+    font-size: 25px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   FILES
+========================= */
+
+.file-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.file-box {
+    display: flex;
+    gap: 15px;
+
+    padding: 19px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    background: #fdfcfd;
+}
+
+.file-icon {
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: var(--pink-light);
+
+    font-size: 20px;
+}
+
+.file-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.file-content > label:first-child {
+    display: block;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    margin-bottom: 2px;
+}
+
+.file-content p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-bottom: 11px;
+}
+
+.file-content input[type="file"] {
+    display: none;
+}
+
+.file-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 35px;
+
+    padding: 0 13px;
+
+    border-radius: 8px;
+
+    background: var(--pink);
+
+    color: white;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.file-button:hover {
+    background: var(--pink-dark);
+}
+
+.file-name {
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================
+   SUBMIT
+========================= */
+
+.submit-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 5px 3px;
+}
+
+.submit-info strong {
+    display: block;
+
+    font-size: 14px;
+}
+
+.submit-info p {
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.submit-btn {
+    min-width: 190px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    border: none;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink),
+            var(--pink-dark)
+        );
+
+    color: white;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(232, 62, 140, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(232, 62, 140, 0.28);
+}
+
+.submit-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+.arrow {
+    font-size: 20px;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    min-width: 290px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 17px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 15px 40px rgba(30, 10, 20, 0.14);
+
+    transform:
+        translateY(30px)
+        translateX(120%);
+
+    opacity: 0;
+
+    transition: 0.3s ease;
+
+    z-index: 999;
+}
+
+.toast.show {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    font-weight: 700;
+}
+
+.toast strong {
+    font-size: 13px;
+}
+
+.toast p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 1px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 25px;
+
+    text-align: center;
+
+    color: #aaa0a6;
+
+    font-size: 11px;
+
+    border-top: 1px solid var(--border);
+
+    background: white;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+
+    .topbar {
+        padding: 0 20px;
+    }
+
+    .container {
+        width: min(100% - 24px, 700px);
+
+        padding-top: 35px;
+    }
+
+    .item-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .item-name-group {
+        grid-column: 1 / -1;
+    }
+
+    .file-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 560px) {
+
+    .topbar {
+        height: 68px;
+    }
+
+    .brand-logo {
+        width: 37px;
+        height: 37px;
+    }
+
+    .brand-name {
+        font-size: 13px;
+    }
+
+    .brand-subtitle {
+        font-size: 10px;
+    }
+
+    .status {
+        font-size: 11px;
+    }
+
+    .container {
+        width: min(100% - 18px, 500px);
+
+        padding-top: 25px;
+    }
+
+    .page-heading {
+        margin-bottom: 23px;
+    }
+
+    .page-heading h1 {
+        font-size: 28px;
+    }
+
+    .form-section {
+        padding: 20px 15px;
+
+        border-radius: 16px;
+    }
+
+    .section-title {
+        margin-bottom: 20px;
+    }
+
+    .section-title h2 {
+        font-size: 17px;
+    }
+
+    .section-number {
+        width: 37px;
+        height: 37px;
+    }
+
+    .item-card {
+        padding: 15px;
+    }
+
+    .item-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .item-name-group {
+        grid-column: auto;
+    }
+
+    .grand-total {
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    .grand-total strong {
+        font-size: 21px;
+    }
+
+    .submit-section {
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 5px 0;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+
+    .toast {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+
+        min-width: auto;
+    }
+
+}

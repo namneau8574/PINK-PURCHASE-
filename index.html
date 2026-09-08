@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PINK DYNASTY | ใบขอซื้อ / เบิกของ</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-logo">P</div>
+
+            <div>
+                <div class="brand-name">PINK DYNASTY</div>
+                <div class="brand-subtitle">
+                    ระบบขอซื้อ / เบิกอุปกรณ์
+                </div>
+            </div>
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            ระบบออนไลน์
+        </div>
+    </header>
+
+
+    <main class="container">
+
+        <section class="page-heading">
+            <span class="eyebrow">PURCHASE REQUEST</span>
+
+            <h1>เบิกงบ ซื้อ</h1>
+
+            <p>
+                กรอกรายละเอียดรายการที่ต้องการจัดซื้อหรือเบิกใช้
+            </p>
+        </section>
+
+
+        <form id="requestForm" class="request-form">
+
+            <!-- =========================
+                 DEPARTMENT
+            ========================== -->
+
+            <section class="form-section">
+
+                <div class="section-title">
+                    <div class="section-number">01</div>
+
+                    <div>
+                        <h2>ข้อมูลผู้ขอ</h2>
+                        <p>เลือกฝ่ายที่ต้องการขอซื้อหรือเบิกของ</p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="department">
+                        ฝ่าย 
+                        <span>*</span>
+                    </label>
+
+                    <select id="department" required>
+                        <option value="">-- เลือกฝ่าย --</option>
+
+
+                        <option value="สวัสดิการและปฎิคม">
+                            สวัสดิการและปฎิคม
+                        </option>
+
+                        <option value="แสตนเชียร์">
+                            แสตนเชียร์
+                        </option>
+
+                        <option value="อัฒจันทร์">
+                            อัฒจันทร์
+                        </option>
+
+                        <option value="ขบวนพาเหรด">
+                            ขบวนพาเหรด
+                        </option>
+
+                        <option value="กีฬา">
+                            กีฬา กีฑา
+                        </option>
+
+                        <option value="สปอตแดนซ์">
+                            สปอตแดนซ์
+                        </option>
+
+                        <option value="เชียร์หลีดเดอร์">
+                            เชียร์หลีดเดอร์
+                        </option>
+
+                        <option value="ฝ่ายอุปกรณ์">
+                            ฝ่ายอุปกรณ์
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 ITEMS
+            ========================== -->
+
+            <section class="form-section">
+
+                <div class="section-title">
+
+                    <div class="section-number">02</div>
+
+                    <div>
+                        <h2>รายการที่ต้องการ</h2>
+                        <p>สามารถเพิ่มได้หลายรายการ</p>
+                    </div>
+
+                </div>
+
+
+                <div id="itemsContainer" class="items-container">
+
+                    <div class="item-card">
+
+                        <div class="item-header">
+                            <strong>รายการที่ 1</strong>
+
+                            <button
+                                type="button"
+                                class="remove-item"
+                                disabled
+                            >
+                                ลบรายการ
+                            </button>
+                        </div>
+
+
+                        <div class="item-grid">
+
+                            <div class="form-group item-name-group">
+
+                                <label>
+                                    รายการ
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="item-name"
+                                    placeholder="เช่น กระดาษ A4"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    จำนวน
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="item-quantity"
+                                    min="1"
+                                    value="1"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    หน่วย
+                                    <span>*</span>
+                                </label>
+
+                                <select class="item-unit" required>
+
+                                    <option value="ชิ้น">ชิ้น</option>
+                                    <option value="อัน">อัน</option>
+                                    <option value="ชุด">ชุด</option>
+                                    <option value="กล่อง">กล่อง</option>
+                                    <option value="แพ็ค">แพ็ค</option>
+                                    <option value="รีม">รีม</option>
+                                    <option value="ขวด">ขวด</option>
+                                    <option value="อื่น ๆ">อื่น ๆ</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    ราคา
+                                    <span>*</span>
+                                </label>
+
+                                <div class="price-input">
+
+                                    <input
+                                        type="number"
+                                        class="item-price"
+                                        min="0"
+                                        step="0.01"
+                                        placeholder="0.00"
+                                        required
+                                    >
+
+                                    <span>บาท</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="item-subtotal">
+                            <span>รวมรายการนี้</span>
+
+                            <strong class="item-total">
+                                ฿0.00
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="addItemBtn"
+                    class="add-item-btn"
+                >
+                    <span>＋</span>
+                    เพิ่มรายการ
+                </button>
+
+
+                <div class="grand-total">
+
+                    <div>
+                        <span>ยอดรวมโดยประมาณ</span>
+                        <small>คำนวณจากจำนวน × ราคาต่อหน่วย</small>
+                    </div>
+
+                    <strong id="grandTotal">
+                        ฿0.00
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 DETAILS
+            ========================== -->
+
+            <section class="form-section">
+
+                <div class="section-title">
+
+                    <div class="section-number">03</div>
+
+                    <div>
+                        <h2>รายละเอียดเพิ่มเติม</h2>
+                        <p>แจ้งรายละเอียดหรือเหตุผลในการขอซื้อ</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="details">
+                        รายละเอียด / เหตุผล
+                    </label>
+
+                    <textarea
+                        id="details"
+                        rows="5"
+                        placeholder="ระบุรายละเอียดเพิ่มเติม เช่น ใช้สำหรับกิจกรรมอะไร ต้องการภายในวันไหน หรือข้อมูลอื่น ๆ ที่เกี่ยวข้อง"
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 FILES
+            ========================== -->
+
+            <section class="form-section">
+
+                <div class="section-title">
+
+                    <div class="section-number">04</div>
+
+                    <div>
+                        <h2>เอกสารประกอบ</h2>
+                        <p>แนบใบเสร็จและหลักฐานการชำระเงิน</p>
+                    </div>
+
+                </div>
+
+
+                <div class="file-grid">
+
+                    <div class="file-box">
+
+                        <div class="file-icon">🧾</div>
+
+                        <div class="file-content">
+
+                            <label for="receipt">
+                                ใบเสร็จ
+                                <span>*</span>
+                            </label>
+
+                            <p>
+                                JPG, PNG หรือ PDF
+                            </p>
+
+                            <input
+                                type="file"
+                                id="receipt"
+                                accept=".jpg,.jpeg,.png,.pdf"
+                                required
+                            >
+
+                            <label
+                                for="receipt"
+                                class="file-button"
+                            >
+                                เลือกไฟล์
+                            </label>
+
+                            <div
+                                id="receiptName"
+                                class="file-name"
+                            >
+                                ยังไม่ได้เลือกไฟล์
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="file-box">
+
+                        <div class="file-icon">💳</div>
+
+                        <div class="file-content">
+
+                            <label for="slip">
+                                สลิปการโอนเงิน
+                                <span>*</span>
+                            </label>
+
+                            <p>
+                                JPG, PNG หรือ PDF
+                            </p>
+
+                            <input
+                                type="file"
+                                id="slip"
+                                accept=".jpg,.jpeg,.png,.pdf"
+                                required
+                            >
+
+                            <label
+                                for="slip"
+                                class="file-button"
+                            >
+                                เลือกไฟล์
+                            </label>
+
+                            <div
+                                id="slipName"
+                                class="file-name"
+                            >
+                                ยังไม่ได้เลือกไฟล์
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SUBMIT
+            ========================== -->
+
+            <section class="submit-section">
+
+                <div class="submit-info">
+                    <strong>ตรวจสอบข้อมูลก่อนส่ง</strong>
+
+                    <p>
+                        กรุณาตรวจสอบรายการ จำนวน และยอดเงินให้ถูกต้อง
+                    </p>
+                </div>
+
+
+                <button
+                    type="submit"
+                    id="submitBtn"
+                    class="submit-btn"
+                >
+                    <span>ส่งใบขอซื้อ</span>
+                    <span class="arrow">→</span>
+                </button>
+
+            </section>
+
+        </form>
+
+    </main>
+
+
+    <footer>
+        PINK DYNASTY · ระบบจัดการคณะสี
+    </footer>
+
+
+    <div id="toast" class="toast">
+        <div class="toast-icon">✓</div>
+
+        <div>
+            <strong id="toastTitle">
+                สำเร็จ
+            </strong>
+
+            <p id="toastMessage">
+                ส่งข้อมูลเรียบร้อยแล้ว
+            </p>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
