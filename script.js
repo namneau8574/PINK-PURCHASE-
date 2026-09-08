@@ -1,9 +1,12 @@
 /* =========================
    ELEMENTS
 ========================= */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhnl9hJt6vfHQm5J4GpUs7JnA5INs9nUNbFzr3dGpbvh6wnAnVGfvWEZoQmaliNAuh/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykoliX4CX5bT5I4v3DP7qeK79SMhk1Guae7J1m7ujye8hozgm2rA1Dd-U6rplWEa4W/exec";
 
 const form = document.getElementById("requestForm");
+
+const requesterName =
+    document.getElementById("requesterName");
 
 const itemsContainer =
     document.getElementById("itemsContainer");
@@ -510,6 +513,10 @@ form.addEventListener(
         }
 
 
+        const requesterNameValue =
+            requesterName.value.trim();
+
+
         const department =
             document.getElementById(
                 "department"
@@ -552,6 +559,8 @@ form.addEventListener(
 
 
             const data = {
+
+                requesterName: requesterNameValue,
 
                 department,
 
