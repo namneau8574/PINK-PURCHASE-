@@ -1,12 +1,9 @@
 /* =========================
    ELEMENTS
 ========================= */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykoliX4CX5bT5I4v3DP7qeK79SMhk1Guae7J1m7ujye8hozgm2rA1Dd-U6rplWEa4W/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhnl9hJt6vfHQm5J4GpUs7JnA5INs9nUNbFzr3dGpbvh6wnAnVGfvWEZoQmaliNAuh/exec";
 
 const form = document.getElementById("requestForm");
-
-const requesterName =
-    document.getElementById("requesterName");
 
 const itemsContainer =
     document.getElementById("itemsContainer");
@@ -342,47 +339,93 @@ itemsContainer
 
 
 /* =========================
-   FILE NAME
+   FILE NAME DISPLAY
+   (แสดงชื่อไฟล์ทั้งหมดที่เลือก
+    รองรับหลายไฟล์ทั้งใบเสร็จ
+    และสลิป)
 ========================= */
+
+function updateFileNameDisplay(inputEl, displayEl) {
+
+    if (inputEl.files.length > 0) {
+
+        displayEl.innerHTML =
+            Array.from(inputEl.files)
+                .map(file => `• ${file.name}`)
+                .join("<br>");
+
+    } else {
+
+        displayEl.textContent =
+            "ยังไม่ได้เลือกไฟล์";
+
+    }
+
+}
+
 
 receipt.addEventListener(
     "change",
-    () => {
-
-        if (receipt.files.length > 0) {
-
-            receiptName.textContent =
-                receipt.files[0].name;
-
-        } else {
-
-            receiptName.textContent =
-                "ยังไม่ได้เลือกไฟล์";
-
-        }
-
-    }
+    () => updateFileNameDisplay(receipt, receiptName)
 );
 
 
 slip.addEventListener(
     "change",
-    () => {
-
-        if (slip.files.length > 0) {
-
-            slipName.textContent =
-                slip.files[0].name;
-
-        } else {
-
-            slipName.textContent =
-                "ยังไม่ได้เลือกไฟล์";
-
-        }
-
-    }
+    () => updateFileNameDisplay(slip, slipName)
 );
+
+
+/* =========================
+   FILE -> BASE64 HELPERS
+========================= */
+
+function fileToBase64(file) {
+
+    return new Promise((resolve, reject) => {
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+
+            const result = reader.result;
+
+            // ตัด prefix "data:...;base64," ออก
+            // เหลือแต่ตัวข้อมูล base64 ล้วน ๆ
+            const base64Data =
+                result.split(",")[1];
+
+            resolve({
+                name: file.name,
+                type: file.type,
+                data: base64Data
+            });
+
+        };
+
+        reader.onerror = () =>
+            reject(new Error("อ่านไฟล์ไม่สำเร็จ: " + file.name));
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+async function filesToBase64(fileList) {
+
+    if (!fileList || fileList.length === 0) {
+        return [];
+    }
+
+    return Promise.all(
+        Array.from(fileList).map(file =>
+            fileToBase64(file)
+        )
+    );
+
+}
 
 
 /* =========================
@@ -452,48 +495,6 @@ function getItems() {
 
 
 /* =========================
-   FILE -> BASE64
-========================= */
-
-function fileToBase64(file) {
-
-    return new Promise((resolve, reject) => {
-
-        if (!file) {
-
-            resolve(null);
-            return;
-
-        }
-
-        const reader = new FileReader();
-
-        reader.onload = () => {
-
-            // ตัด prefix "data:xxx;base64," ออก เหลือแค่ base64 ล้วน
-            const base64 =
-                reader.result.split(",")[1];
-
-            resolve({
-                name: file.name,
-                type: file.type,
-                data: base64
-            });
-
-        };
-
-        reader.onerror = () => {
-            reject(new Error("ไม่สามารถอ่านไฟล์ได้: " + file.name));
-        };
-
-        reader.readAsDataURL(file);
-
-    });
-
-}
-
-
-/* =========================
    SUBMIT
 ========================= */
 
@@ -513,8 +514,10 @@ form.addEventListener(
         }
 
 
-        const requesterNameValue =
-            requesterName.value.trim();
+        const requesterName =
+            document.getElementById(
+                "requesterName"
+            ).value.trim();
 
 
         const department =
@@ -544,122 +547,99 @@ form.addEventListener(
         submitBtn.disabled = true;
 
         submitBtn.querySelector("span").textContent =
+            "กำลังแปลงไฟล์...";
+
+
+        // แปลงไฟล์ใบเสร็จและสลิป (หลายไฟล์) เป็น base64
+        // เผื่อใช้ส่งต่อไปยัง Google Apps Script
+        const [receiptFiles, slipFiles] =
+            await Promise.all([
+                filesToBase64(receipt.files),
+                filesToBase64(slip.files)
+            ]);
+
+
+        const data = {
+
+            requesterName,
+
+            department,
+
+            items,
+
+            total,
+
+            details,
+
+            receipts: receiptFiles,
+
+            slips: slipFiles,
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        console.log(
+            "ข้อมูลที่จะส่ง:",
+            data
+        );
+
+
+        /* =========================
+           DEMO SUBMIT
+           เปลี่ยนส่วนนี้เป็นการยิง
+           fetch(GOOGLE_SCRIPT_URL, {...})
+           จริงภายหลัง
+        ========================== */
+
+        submitBtn.querySelector("span").textContent =
             "กำลังส่งข้อมูล...";
 
 
-        try {
-
-            /* แปลงไฟล์แนบเป็น base64 ก่อนส่ง */
-
-            const receiptData =
-                await fileToBase64(receipt.files[0]);
-
-            const slipData =
-                await fileToBase64(slip.files[0]);
+        await new Promise(
+            resolve =>
+                setTimeout(resolve, 1000)
+        );
 
 
-            const data = {
+        submitBtn.disabled = false;
 
-                requesterName: requesterNameValue,
-
-                department,
-
-                items,
-
-                total,
-
-                details,
-
-                receipt: receiptData,
-
-                slip: slipData,
-
-                createdAt:
-                    new Date().toISOString()
-
-            };
+        submitBtn.querySelector("span").textContent =
+            "ส่งใบขอซื้อ";
 
 
-            console.log(
-                "ข้อมูลที่จะส่ง:",
-                data
-            );
+        showToast(
+            "ส่งข้อมูลสำเร็จ",
+            "บันทึกใบขอซื้อเรียบร้อยแล้ว"
+        );
 
 
-            /* =========================
-               ส่งข้อมูลจริงไปที่
-               Google Apps Script
-            ========================== */
+        console.log(
+            "Department:",
+            department
+        );
 
-            const response =
-                await fetch(GOOGLE_SCRIPT_URL, {
+        console.log(
+            "Items:",
+            items
+        );
 
-                    method: "POST",
+        console.log(
+            "Total:",
+            total
+        );
 
-                    // ใช้ text/plain เพื่อเลี่ยงปัญหา CORS preflight
-                    // กับ Google Apps Script Web App
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8"
-                    },
+        console.log(
+            "จำนวนไฟล์ใบเสร็จ:",
+            receiptFiles.length
+        );
 
-                    body: JSON.stringify(data)
-
-                });
-
-
-            const result =
-                await response.json();
-
-
-            console.log(
-                "ผลลัพธ์จากเซิร์ฟเวอร์:",
-                result
-            );
-
-
-            if (result.success) {
-
-                showToast(
-                    "ส่งข้อมูลสำเร็จ",
-                    result.message || "บันทึกใบขอซื้อเรียบร้อยแล้ว"
-                );
-
-                form.reset();
-
-                receiptName.textContent =
-                    "ยังไม่ได้เลือกไฟล์";
-
-                slipName.textContent =
-                    "ยังไม่ได้เลือกไฟล์";
-
-                calculateTotal();
-
-            } else {
-
-                showToast(
-                    "เกิดข้อผิดพลาด",
-                    result.message || "ไม่สามารถบันทึกข้อมูลได้"
-                );
-
-            }
-
-        } catch (error) {
-
-            console.error(error);
-
-            showToast(
-                "เกิดข้อผิดพลาด",
-                "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง"
-            );
-
-        } finally {
-
-            submitBtn.disabled = false;
-
-            submitBtn.querySelector("span").textContent =
-                "ส่งใบขอซื้อ";
-
-        }
+        console.log(
+            "จำนวนไฟล์สลิป:",
+            slipFiles.length
+        );
 
     }
 );
