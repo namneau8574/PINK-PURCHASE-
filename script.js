@@ -1,7 +1,7 @@
 /* =========================
    ELEMENTS
 ========================= */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhnl9hJt6vfHQm5J4GpUs7JnA5INs9nUNbFzr3dGpbvh6wnAnVGfvWEZoQmaliNAuh/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLxNEuGDD_muJlw_X5u4rJw4HmPmwZcMLLp7vQ9miy9D4NiDH00OgCl8cnI6JrsOSP/exec";
 
 const form = document.getElementById("requestForm");
 
