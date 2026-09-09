@@ -588,32 +588,94 @@ form.addEventListener(
 
 
         /* =========================
-           DEMO SUBMIT
-           เปลี่ยนส่วนนี้เป็นการยิง
-           fetch(GOOGLE_SCRIPT_URL, {...})
-           จริงภายหลัง
+           SEND TO GOOGLE APPS SCRIPT
         ========================== */
 
         submitBtn.querySelector("span").textContent =
             "กำลังส่งข้อมูล...";
 
 
-        await new Promise(
-            resolve =>
-                setTimeout(resolve, 1000)
-        );
+        try {
+
+            const response =
+                await fetch(GOOGLE_SCRIPT_URL, {
+
+                    method: "POST",
+
+                    // ใช้ text/plain เพื่อเลี่ยงปัญหา
+                    // CORS preflight กับ Apps Script
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+
+                    body: JSON.stringify(data)
+
+                });
 
 
-        submitBtn.disabled = false;
-
-        submitBtn.querySelector("span").textContent =
-            "ส่งใบขอซื้อ";
+            const result =
+                await response.json();
 
 
-        showToast(
-            "ส่งข้อมูลสำเร็จ",
-            "บันทึกใบขอซื้อเรียบร้อยแล้ว"
-        );
+            if (!result.success) {
+
+                throw new Error(
+                    result.message ||
+                    "เกิดข้อผิดพลาดไม่ทราบสาเหตุ"
+                );
+
+            }
+
+
+            showToast(
+                "ส่งข้อมูลสำเร็จ",
+                "บันทึกใบขอซื้อเรียบร้อยแล้ว"
+            );
+
+
+            form.reset();
+
+            itemsContainer
+                .querySelectorAll(".item-card")
+                .forEach((card, index) => {
+
+                    if (index > 0) {
+                        card.remove();
+                    }
+
+                });
+
+            updateItemNumbers();
+            updateRemoveButtons();
+            calculateTotal();
+
+            receiptName.textContent =
+                "ยังไม่ได้เลือกไฟล์";
+
+            slipName.textContent =
+                "ยังไม่ได้เลือกไฟล์";
+
+        } catch (error) {
+
+            console.error(
+                "ส่งข้อมูลไม่สำเร็จ:",
+                error
+            );
+
+            showToast(
+                "ส่งข้อมูลไม่สำเร็จ",
+                error.message ||
+                "กรุณาลองใหม่อีกครั้ง"
+            );
+
+        } finally {
+
+            submitBtn.disabled = false;
+
+            submitBtn.querySelector("span").textContent =
+                "ส่งใบขอซื้อ";
+
+        }
 
 
         console.log(
